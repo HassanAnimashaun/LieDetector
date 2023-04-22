@@ -50,7 +50,7 @@ class LieDetector {
             answers[2]=0;
         }
 
-        //4th question
+        //4th question hh
         System.out.println("Is it odd?");
         answer=input.nextLine();
 
@@ -97,10 +97,12 @@ class LieDetector {
         else {
             answers[6]=0;
         }
-
+//encode method
         System.out.println(Arrays.toString(answers));
-
+//decode method 
         int weight=0;
+        int index = 1;
+        int newIndex = 0;
         for (int i = 0; i < answers.length; i++) {
             if (answers[i] == 1) {
                 weight++;
@@ -112,6 +114,7 @@ class LieDetector {
             //If the weight is 1, the lie is in the posion of the 1 in the string
             else if (weight == 1) {
                 System.out.println("The lie is in the position of the 1 in the string");
+                answers[weight] = newIndex;
             }
             //. If the weight is 2, then the posions of the two 1s lie on a unique line; the third point on the line is the lie.
             else if (weight == 2) {
@@ -125,8 +128,13 @@ class LieDetector {
             else if (weight >= 4) {
                 System.out.println("The lie is the point not on the line");
             }
-        } 
-    }
+        }
+       int toDecimal = 0;
+       for(int i = 0; i < 4; i++){
+        toDecimal += answers[i] * Math.pow(2, 3-i);
+       }
+       System.out.println(toDecimal);
+      }
 }
 
 
