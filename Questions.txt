@@ -1,0 +1,2 @@
+Could apply the lines of the pano plane as a 2d array for my decoder to select from 
+for the decoder im converting we are converting  7-bit to 15-bit correct?
