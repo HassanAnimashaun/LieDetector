@@ -2,5 +2,5 @@ where would i impliment a 2d array into this program
 would i need to preform a linear search to find the lies 
 maybe impliment my questions and answers into 2d array so each quaestion and answer is assigned to either 1 or 0
 Do i need to replace the lies with truths(1,0).
-
+testing here 
 
