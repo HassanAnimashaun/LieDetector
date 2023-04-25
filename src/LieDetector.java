@@ -32,6 +32,16 @@ class LieDetector {
         return answers;
     }
 
+    public static int linearSearch(int[] answers, int key) {
+        for (int i = 0; i < answers.length; i++) {
+            if (answers[i] == key) {
+                answers[i] = 0;
+            }
+        }
+        System.out.println("new array" + Arrays.toString(answers));
+        return -1;
+    }
+
     public static void decode(int[] answers) {
         int weight = 0;
         for (int i = 0; i < answers.length; i++) {
@@ -43,12 +53,16 @@ class LieDetector {
             System.out.println("No lie was told");
         } else if (weight == 1) {
             System.out.println("The lie is in the position of the 1 in the string");
+            int lie = linearSearch(answers, 1);
         } else if (weight == 2) {
             System.out.println("The lie is the third point on the line");
+            int lie = linearSearch(answers, 1);
         } else if (weight == 3) {
             System.out.println("The lie is the point not on the line");
+            int lie = linearSearch(answers, 1);
         } else if (weight >= 4) {
             System.out.println("The lie is the point not on the line");
+            int lie = linearSearch(answers, 1);
         }
 
         int toDecimal = 0;
@@ -57,7 +71,7 @@ class LieDetector {
         }
         System.out.println(toDecimal);
     }
-
+    0110
     public static void main(String[] args) {
         int[] answers = new int[7];
         encode(answers);
