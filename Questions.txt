@@ -1,10 +1,16 @@
 where would i impliment a 2d array into this program 
     fano plane best for 2d array
     2d array of char of questions 
-would i need to preform a linear search to find the lies 
+*would i need to preform a linear search to find the lies 
      where are 0 and where are 1 (2methods for each usign arrayList)
 Do i need to replace the lies with truths(1,0).
     replace it with truth
    
-testing here 
+How to find the lie
+    1.find positions of 1's in arrray 
+    2.have both positions in (x1,y1) form
+    3. find slope [m=(y2-y1)/(x2-x1)]
 
+
+    position will be sent to the 2d fanoplane where it will be assigned the position of the lie within the array(1-7)
+    (row,colum)

@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
-
-
-
+import java.util.ArrayList;
 class LieDetector {
     public static String[] getQuestions() {
         String[] questions = { "Is the number 8 or greater?",
@@ -22,7 +20,6 @@ class LieDetector {
         for (int i = 0; i < questions.length; i++) {
             System.out.println(questions[i]);
             String answer = input.nextLine();
-            // if yes then 1 else 0 in to answer array
             if (answer.equalsIgnoreCase("y")) {
                 answers[i] = 1;
             } else {
@@ -30,8 +27,31 @@ class LieDetector {
             }
             answers[i] = answers[i];
         }
+        System.out.println();
         System.out.println(Arrays.toString(answers));
         return answers;
+    }
+
+    public static ArrayList<Integer> whereAreZeros(int[] answers) {
+        ArrayList<Integer> zero = new ArrayList<Integer>();
+        for (int i = 0; i < answers.length; i++) {
+            if (answers[i] == 0) {
+                zero.add(i);
+            }
+        }
+        System.out.println("zero" + zero);
+        return zero;
+    }
+
+    public static ArrayList<Integer> whereAreOnes(int[] answers) {
+        ArrayList<Integer> one = new ArrayList<Integer>();
+        for (int i = 0; i < answers.length; i++) {
+            if (answers[i] == 1) {
+                one.add(i);
+            }
+        }
+        System.out.println("one:" + one + "\n");
+        return one;
     }
 
     public static int linearSearch(int[] answers, int key) {
@@ -44,6 +64,7 @@ class LieDetector {
         return -1;
     }
 
+   
     public static void decode(int[] answers) {
         int weight = 0;
         for (int i = 0; i < answers.length; i++) {
@@ -51,46 +72,53 @@ class LieDetector {
                 weight++;
             }
         }
+        whereAreZeros(answers);
+        whereAreOnes(answers);
         if (weight == 0) {
             System.out.println("No lie was told");
-        } else if (weight == 1) {
-            System.out.println("The lie is in the position of the 1 in the string");
-            int lie = linearSearch(answers, 1);
-        } else if (weight == 2) {
-            System.out.println("The lie is the third point on the line");
-            int lie = linearSearch(answers, 1);
-        } else if (weight == 3) {
-            System.out.println("The lie is the point not on the line");
-            int lie = linearSearch(answers, 1);
-        } else if (weight >= 4) {
-            System.out.println("The lie is the point not on the line");
-            int lie = linearSearch(answers, 1);
         }
 
-        int toDecimal = 0;
-        for (int j = 0; j < 4; j++) {
-            toDecimal += answers[j] * Math.pow(2, 3 - j);
+        else if (weight == 1) {
+            System.out.println("The lie is in the position of the 1 in the string");
+            linearSearch(answers, 1);
+            
+        } 
+
+        else if (weight == 2) {
+            System.out.println("The lie is the third point on the line");
+        } 
+
+        else if (weight == 3) {
+            System.out.println("The lie is the point not on the line");
+        } 
+
+        else if (weight >= 4) {
+            System.out.println("The lie is the point not on the line");
+            
         }
-        System.out.println(toDecimal);
+
+        int numGuessed = 0;
+        for (int j = 0; j < 4; j++) {
+            numGuessed += answers[j] * Math.pow(2, 3 - j);
+        }
+        System.out.println("The number thought of was " + numGuessed);
     }
 
     public static void main(String[] args) {
-        //2d array of fano plane
+        //2d array of fano plane 
         int[][] fanoPlane = {
-                {1, 2, 3, 4},
-                {1, 5, 6, 7},
-                {1, 8, 9, 10},
-                {1, 11, 12, 13},
-                {2, 5, 8, 11},
-                {2, 6, 9, 12},
-                {2, 7, 10, 13},
-                {3, 5, 9, 13},
-                {3, 6, 10, 11},
-                {3, 7, 8, 12},
-                {4, 5, 10, 12},
-                {4, 6, 8, 13},
-                {4, 7, 9, 11}
+            {1, 2, 3},
+            {1, 4, 5},
+            {1, 6, 7},
+            {2, 4, 6},
+            {2, 5, 7},
+            {3, 4, 7},
+            {3, 5, 6}
         };
+        int value = fanoPlane[3][0];
+        System.out.println(value);
+        
+        
         int[] answers = new int[7];
         encode(answers);
         decode(answers);
