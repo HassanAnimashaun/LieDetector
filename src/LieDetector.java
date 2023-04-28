@@ -74,6 +74,18 @@ class LieDetector {
         }
         whereAreZeros(answers);
         whereAreOnes(answers);
+
+         //use fanoplane to find the lie position
+         int[][] fanoPlane = {
+            {1, 2, 3},
+            {1, 4, 5},
+            {1, 6, 7},
+            {2, 4, 6},
+            {2, 5, 7},
+            {3, 4, 7},
+            {3, 5, 6}
+        };
+       
         if (weight == 0) {
             System.out.println("No lie was told");
         }
@@ -105,17 +117,7 @@ class LieDetector {
     }
 
     public static void main(String[] args) {
-        int[][] fanoPlane = {
-            {1, 2, 3},
-            {1, 4, 5},
-            {1, 6, 7},
-            {2, 4, 6},
-            {2, 5, 7},
-            {3, 4, 7},
-            {3, 5, 6}
-        };
-        int value = fanoPlane[3][0];
-        System.out.println(value);
+       
         
         
         int[] answers = new int[7];
