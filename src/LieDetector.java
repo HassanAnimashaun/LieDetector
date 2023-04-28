@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.Arrays;
 
+
+
 class LieDetector {
     public static String[] getQuestions() {
         String[] questions = { "Is the number 8 or greater?",
@@ -71,8 +73,24 @@ class LieDetector {
         }
         System.out.println(toDecimal);
     }
-    0110
+
     public static void main(String[] args) {
+        //2d array of fano plane
+        int[][] fanoPlane = {
+                {1, 2, 3, 4},
+                {1, 5, 6, 7},
+                {1, 8, 9, 10},
+                {1, 11, 12, 13},
+                {2, 5, 8, 11},
+                {2, 6, 9, 12},
+                {2, 7, 10, 13},
+                {3, 5, 9, 13},
+                {3, 6, 10, 11},
+                {3, 7, 8, 12},
+                {4, 5, 10, 12},
+                {4, 6, 8, 13},
+                {4, 7, 9, 11}
+        };
         int[] answers = new int[7];
         encode(answers);
         decode(answers);

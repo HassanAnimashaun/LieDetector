@@ -1,6 +1,10 @@
 where would i impliment a 2d array into this program 
+    fano plane best for 2d array
+    2d array of char of questions 
 would i need to preform a linear search to find the lies 
-maybe impliment my questions and answers into 2d array so each quaestion and answer is assigned to either 1 or 0
+     where are 0 and where are 1 (2methods for each usign arrayList)
 Do i need to replace the lies with truths(1,0).
+    replace it with truth
+   
 testing here 
 
