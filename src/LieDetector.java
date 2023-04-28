@@ -105,7 +105,6 @@ class LieDetector {
     }
 
     public static void main(String[] args) {
-        //2d array of fano plane 
         int[][] fanoPlane = {
             {1, 2, 3},
             {1, 4, 5},
