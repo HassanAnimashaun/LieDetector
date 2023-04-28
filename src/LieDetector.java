@@ -36,7 +36,7 @@ class LieDetector {
         ArrayList<Integer> zero = new ArrayList<Integer>();
         for (int i = 0; i < answers.length; i++) {
             if (answers[i] == 0) {
-                zero.add(i);
+                zero.add(i + 1);
             }
         }
         System.out.println("zero" + zero);
@@ -47,7 +47,8 @@ class LieDetector {
         ArrayList<Integer> one = new ArrayList<Integer>();
         for (int i = 0; i < answers.length; i++) {
             if (answers[i] == 1) {
-                one.add(i);
+                one.add(i + 1);
+                
             }
         }
         System.out.println("one:" + one + "\n");
@@ -75,8 +76,8 @@ class LieDetector {
         whereAreZeros(answers);
         whereAreOnes(answers);
 
-         //use fanoplane to find the lie position
-         int[][] fanoPlane = {
+         //use fanoplane to find the lie position(create final)
+          int[][] fanoPlane = {
             {1, 2, 3},
             {1, 4, 5},
             {1, 6, 7},

@@ -10,7 +10,8 @@ How to find the lie
     1.find positions of 1's in arrray 
     2.have both positions in (x1,y1) form
     3. find slope [m=(y2-y1)/(x2-x1)]
-
+    
+    projective geo 
 
     position will be sent to the 2d fanoplane where it will be assigned the position of the lie within the array(1-7)
     (row,colum)
