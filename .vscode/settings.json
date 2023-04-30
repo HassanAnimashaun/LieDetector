@@ -4,5 +4,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
-    "gitlens.plusFeatures.enabled": true
+    "gitlens.plusFeatures.enabled": true,
+    "java.debug.settings.onBuildFailureProceed": true
 }
