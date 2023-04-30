@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
+
+package Main;
+
 class LieDetector {
     public static String[] getQuestions() {
         String[] questions = { "Is the number 8 or greater?",
