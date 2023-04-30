@@ -1,8 +1,7 @@
+
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
-
-package Main;
 
 class LieDetector {
     public static String[] getQuestions() {
@@ -63,7 +62,7 @@ class LieDetector {
                 answers[i] = 0;
             }
         }
-        System.out.println("new array" + Arrays.toString(answers));
+        System.out.println(Arrays.toString(answers));
         return -1;
     }
 
@@ -100,8 +99,9 @@ class LieDetector {
 
         else if (weight == 2) {
             //for the first 2 elements in whereAreOnes use them to find the matching row in fanoPlane and use the 3rd element to find the lie
-            int first = whereAreOnes(answers).get(0);
-            int second = whereAreOnes(answers).get(1);
+            ArrayList<Integer> onesIndexes = whereAreOnes(answers);
+            int first = onesIndexes.get(0);
+            int second = onesIndexes.get(1);
             int lie = 0;
             for (int i = 0; i < fanoPlane.length; i++) {
                 if (fanoPlane[i][0] == first && fanoPlane[i][1] == second) {
@@ -126,9 +126,10 @@ class LieDetector {
         else if (weight == 3) {
 
             //check elements in whereAreOnes that contains exactly one row in the fanoPlane
-            int first = whereAreOnes(answers).get(0);
-            int second = whereAreOnes(answers).get(1);
-            int third = whereAreOnes(answers).get(2);
+            ArrayList<Integer> onesIndexes = whereAreOnes(answers);
+            int first = onesIndexes.get(0);
+            int second = onesIndexes.get(1);
+            int third = onesIndexes.get(2);
             int lie = 0;
             for (int i = 0; i < fanoPlane.length; i++) {
                 if (fanoPlane[i][0] == first && fanoPlane[i][1] == second && fanoPlane[i][2] == third) {
@@ -140,7 +141,7 @@ class LieDetector {
                 }
             }
             //if element in whereAreOnes exactly on fanoPlane then no lie was told
-            if (whereAreOnes(answers).contains(lie)) {
+            if (onesIndexes.contains(lie)) {
                 System.out.println("No lie was told");            
             }//else if element in whereAreOnes not on fanoPlane then the lie is the element in whereAreOnes
             else {
