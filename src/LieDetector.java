@@ -27,7 +27,6 @@ class LieDetector {
             } else {
                 answers[i] = 0;
             }
-            answers[i] = answers[i];
         }
         System.out.println();
         System.out.println(Arrays.toString(answers));
@@ -66,7 +65,101 @@ class LieDetector {
         return -1;
     }
 
-   
+    public static Void weightTwo(int[] answers, int[][] fanoPlane) {
+        ArrayList<Integer> onesIndexes = whereAreOnes(answers);
+        int first = onesIndexes.get(0);
+        int second = onesIndexes.get(1);
+        int lie = 0;
+        for (int i = 0; i < fanoPlane.length; i++) {
+            if (fanoPlane[i][0] == first && fanoPlane[i][1] == second) {
+                lie = fanoPlane[i][2];
+            } else if (fanoPlane[i][0] == first && fanoPlane[i][2] == second) {
+                lie = fanoPlane[i][1];
+            } else if (fanoPlane[i][1] == first && fanoPlane[i][2] == second) {
+                lie = fanoPlane[i][0];
+            }
+        }
+        System.out.println("The lie is in the position of the " + lie + " in the string");
+        answers[lie - 1] = 1;
+        System.out.println(Arrays.toString(answers));
+        return null;
+    }
+
+    public static void weightThree(int[] answers, int[][] fanoPlane) {
+        ArrayList<Integer> onesIndexes = whereAreOnes(answers);
+        int first = onesIndexes.get(0);
+        int second = onesIndexes.get(1);
+        int third = onesIndexes.get(2);
+        int lie = 0;
+        for (int i = 0; i < fanoPlane.length; i++) {
+            if (fanoPlane[i][0] == first && fanoPlane[i][1] == second && fanoPlane[i][2] == third) {
+                lie = fanoPlane[i][2];
+            } else if (fanoPlane[i][0] == first && fanoPlane[i][2] == second && fanoPlane[i][1] == third) {
+                lie = fanoPlane[i][1];
+            } else if (fanoPlane[i][1] == first && fanoPlane[i][2] == second && fanoPlane[i][0] == third) {
+                lie = fanoPlane[i][0];
+            }
+        }
+        if (onesIndexes.contains(lie)) {
+            System.out.println("No lie was told");
+        } else {
+            int firstZero = whereAreZeros(answers).get(0);
+            int secondZero = whereAreZeros(answers).get(1);
+            int thirdZero = whereAreZeros(answers).get(2);
+            int fourthZero = whereAreZeros(answers).get(3);
+            int lieZeros = -1;
+            for (int i = 0; i < fanoPlane.length; i++) {
+                int a = fanoPlane[i][0];
+                int b = fanoPlane[i][1];
+                int c = fanoPlane[i][2];
+
+                if (a == firstZero && b == secondZero && c == thirdZero) {
+                    lieZeros = fourthZero;
+                    break;
+                } else if (a == firstZero && b == thirdZero && c == secondZero) {
+                    lieZeros = secondZero;
+                    break;
+                } else if (a == secondZero && b == thirdZero && c == firstZero) {
+                    lieZeros = firstZero;
+                    break;
+                } else if (a == firstZero && b == secondZero && c == fourthZero) {
+                    lieZeros = thirdZero;
+                    break;
+                } else if (a == firstZero && b == thirdZero && c == fourthZero) {
+                    lieZeros = secondZero;
+                    break;
+                } else if (a == secondZero && b == thirdZero && c == fourthZero) {
+                    lieZeros = firstZero;
+                    break;
+                }
+            }
+            System.out.println("The lie is in the position of the " + lieZeros + " in the string");
+            // replace the lie with a 1 in the answers then print the new array
+            answers[lieZeros - 1] = 0;
+            System.out.println(Arrays.toString(answers));
+        }
+    }
+
+    public static int findLiePosition(int[][] fanoPlane, int[] answers) {
+        ArrayList<Integer> onesIndexes = whereAreOnes(answers);
+        int first = onesIndexes.get(0);
+        int second = onesIndexes.get(1);
+        int third = onesIndexes.get(2);
+        int lie = 0;
+
+        for (int i = 0; i < fanoPlane.length; i++) {
+            if (fanoPlane[i][0] == first && fanoPlane[i][1] == second) {
+                lie = fanoPlane[i][2];
+            } else if (fanoPlane[i][0] == first && fanoPlane[i][2] == second) {
+                lie = fanoPlane[i][1];
+            } else if (fanoPlane[i][1] == first && fanoPlane[i][2] == second) {
+                lie = fanoPlane[i][0];
+            }
+        }
+
+        return lie;
+    }
+
     public static void decode(int[] answers) {
         int weight = 0;
         for (int i = 0; i < answers.length; i++) {
@@ -74,19 +167,18 @@ class LieDetector {
                 weight++;
             }
         }
-       
 
-         //use fanoplane to find the lie position(create final)
-          int[][] fanoPlane = {
-            {1, 2, 3},
-            {1, 4, 5},
-            {1, 6, 7},
-            {2, 4, 6},
-            {2, 5, 7},
-            {3, 4, 7},
-            {3, 5, 6}
+        // use fanoplane to find the lie position(create final)
+        int[][] fanoPlane = {
+                { 1, 2, 3 },
+                { 1, 4, 5 },
+                { 1, 6, 7 },
+                { 2, 4, 6 },
+                { 2, 5, 7 },
+                { 3, 4, 7 },
+                { 3, 5, 6 }
         };
-       
+
         if (weight == 0) {
             System.out.println("No lie was told");
         }
@@ -94,103 +186,21 @@ class LieDetector {
         else if (weight == 1) {
             System.out.println("The lie is in the position of the 1 in the string");
             linearSearch(answers, 1);
-            
-        } 
 
-        else if (weight == 2) {
-            //for the first 2 elements in whereAreOnes use them to find the matching row in fanoPlane and use the 3rd element to find the lie
-            ArrayList<Integer> onesIndexes = whereAreOnes(answers);
-            int first = onesIndexes.get(0);
-            int second = onesIndexes.get(1);
-            int lie = 0;
-            for (int i = 0; i < fanoPlane.length; i++) {
-                if (fanoPlane[i][0] == first && fanoPlane[i][1] == second) {
-                    lie = fanoPlane[i][2];
-                } else if (fanoPlane[i][0] == first && fanoPlane[i][2] == second) {
-                    lie = fanoPlane[i][1];
-                } else if (fanoPlane[i][1] == first && fanoPlane[i][2] == second) {
-                    lie = fanoPlane[i][0];
-                }
-            }
-            
-            //tell the user what place was the lie
-            System.out.println("The lie is in the position of the " + lie + " in the string");
-            //replace the lie with a 1 in the answers then print the new array
-            answers[lie - 1] = 1;
-            System.out.println(Arrays.toString(answers));
-
-
-           
-            
-        }
-        else if (weight == 3) {
-
-            //check elements in whereAreOnes that contains exactly one row in the fanoPlane
-            ArrayList<Integer> onesIndexes = whereAreOnes(answers);
-            int first = onesIndexes.get(0);
-            int second = onesIndexes.get(1);
-            int third = onesIndexes.get(2);
-            int lie = 0;
-            for (int i = 0; i < fanoPlane.length; i++) {
-                if (fanoPlane[i][0] == first && fanoPlane[i][1] == second && fanoPlane[i][2] == third) {
-                    lie = fanoPlane[i][2];
-                } else if (fanoPlane[i][0] == first && fanoPlane[i][2] == second && fanoPlane[i][1] == third) {
-                    lie = fanoPlane[i][1];
-                } else if (fanoPlane[i][1] == first && fanoPlane[i][2] == second && fanoPlane[i][0] == third) {
-                    lie = fanoPlane[i][0];
-                }
-            }
-            //if element in whereAreOnes exactly on fanoPlane then no lie was told
-            if (onesIndexes.contains(lie)) {
-                System.out.println("No lie was told");            
-            }//else if element in whereAreOnes not on fanoPlane then the lie is the element in whereAreOnes
-            else {
-                int firstZero = whereAreZeros(answers).get(0);
-                int secondZero = whereAreZeros(answers).get(1);
-                int thirdZero = whereAreZeros(answers).get(2);
-                int fourthZero = whereAreZeros(answers).get(3);
-                int lieZeros = -1;
-                for (int i = 0; i < fanoPlane.length; i++) {
-                    int a = fanoPlane[i][0];
-                    int b = fanoPlane[i][1];
-                    int c = fanoPlane[i][2];
-                    
-                    if (a == firstZero && b == secondZero && c == thirdZero) {
-                        lieZeros = fourthZero;
-                        break;
-                    } else if (a == firstZero && b == thirdZero && c == secondZero) {
-                        lieZeros = secondZero;
-                        break;
-                    } else if (a == secondZero && b == thirdZero && c == firstZero) {
-                        lieZeros = firstZero;
-                        break;
-                    } else if (a == firstZero && b == secondZero && c == fourthZero) {
-                        lieZeros = thirdZero;
-                        break;
-                    } else if (a == firstZero && b == thirdZero && c == fourthZero) {
-                        lieZeros = secondZero;
-                        break;
-                    } else if (a == secondZero && b == thirdZero && c == fourthZero) {
-                        lieZeros = firstZero;
-                        break;
-                    }
-                }
-                System.out.println("The lie is in the position of the " + lieZeros + " in the string");
-                //replace the lie with a 1 in the answers then print the new array
-                answers[lieZeros - 1] = 0;
-                System.out.println(Arrays.toString(answers));
-            } 
-        }
-        else if (weight >= 4) {
-            //check size of element in wherearezeros
+        } else if (weight == 2) {
+            weightTwo(answers, fanoPlane);
+        } else if (weight == 3) {
+            weightThree(answers, fanoPlane);
+        } else if (weight >= 4) {
             if (whereAreZeros(answers).size() == 1) {
                 int firstZero = whereAreZeros(answers).get(0);
                 int lie = 0;
+
                 for (int i = 0; i < fanoPlane.length; i++) {
                     int a = fanoPlane[i][0];
                     int b = fanoPlane[i][1];
                     int c = fanoPlane[i][2];
-                    
+
                     if (a == firstZero) {
                         lie = a;
                         break;
@@ -202,60 +212,17 @@ class LieDetector {
                         break;
                     }
                 }
-                System.out.println("The lie is in the position of the " + lie + " in the string");
-                //replace the lie with a 1 in the answers then print the new array
-                answers[lie - 1] = 0;
-                System.out.println(Arrays.toString(answers));
-            } else if (whereAreZeros(answers).size() == 2) {
-                int firstZero = whereAreZeros(answers).get(0);
-                int secondZero = whereAreZeros(answers).get(1);
-                int lie = 0;
-                for (int i = 0; i < fanoPlane.length; i++) {
-                    int a = fanoPlane[i][0];
-                    int b = fanoPlane[i][1];
-                    int c = fanoPlane[i][2];
-                    
-                    if (a == firstZero && b == secondZero) {
-                        lie = c;
-                        break;
-                    } else if (a == firstZero && c == secondZero) {
-                        lie = b;
-                        break;
-                    } else if (b == firstZero && c == secondZero) {
-                        lie = a;
-                        break;
-                    }
+
+                if (lie == 0) {
+                    lie = findLiePosition(fanoPlane, answers);
                 }
+
                 System.out.println("The lie is in the position of the " + lie + " in the string");
-                //replace the lie with a 1 in the answers then print the new array
-                answers[lie - 1] = 0;
+                answers[lie - 1] = 1;
                 System.out.println(Arrays.toString(answers));
-            } else if (whereAreZeros(answers).size() == 3) {
-                int firstZero = whereAreZeros(answers).get(0);
-                int secondZero = whereAreZeros(answers).get(1);
-                int thirdZero = whereAreZeros(answers).get(2);
-                int lie = 0;
-                for (int i = 0; i < fanoPlane.length; i++) {
-                    int a = fanoPlane[i][0];
-                    int b = fanoPlane[i][1];
-                    int c = fanoPlane[i][2];
-                    
-                    if (a == firstZero && b == secondZero && c == thirdZero) {
-                        lie = fanoPlane[i][2];
-                        break;
-                    } else if (a == firstZero && b == thirdZero && c == secondZero) {
-                        lie = fanoPlane[i][1];
-                        break;
-                    } else if (a == secondZero && b == thirdZero && c == firstZero) {
-                        lie = fanoPlane[i][0];
-                    }
-                    System.out.println("The lie is in the position of the " + lie + " in the string");
-                    //replace the lie with a 1 in the answers then print the new array
-                    answers[lie - 1] = 0;
-                    }
-                }
             }
-               
+
+        }
 
         int numGuessed = 0;
         for (int j = 0; j < 4; j++) {
